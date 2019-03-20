@@ -33,7 +33,7 @@
         <!-- 扫描所有的 mybatis配置文件 -->
         <property name="configLocation" value="classpath:mybatis.xml"/>
         <!-- 扫描所有的 mapper.xml -->
-        <property name="mapperLocations" value="classpath:com/xp/mapper/*.xml"/>
+        <property name="mapperLocations" value="classpath:*com/xp/mapper/*.xml"/>
     </bean>
 
     <!-- 扫描所有mapper接口文件,初始化所有dao -->
