@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                        http://dubbo.apache.org/schema/dubbo
+                        http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!--************************消费者配置步骤**************************-->
+
+    <!-- 1, 配置消费者名字 -->
+	<dubbo:application name="Dubbo-consumer" id="consumer"/>
+
+    <!-- 2, 配置注册中心地址,订阅服务 -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+
+	<!-- 3, 声明需要引用的远程服务接口,生成远程服务代理。
+	        引用provider暴露的接口,此时接口已经加入容器中,可通过注解注入 -->
+	<dubbo:reference id="userService"  interface="com.xp.api.IUserService"/>
+    <dubbo:reference id="productService" interface="com.xp.api.IProductService"/>
+
+    <!-- 6,配置监控中心 -->
+    <!--<dubbo:monitor protocol="registry"/>-->
+
+    <!-- 7,启动检查,所有的服务消费者都不检查 -->
+    <dubbo:consumer check="false"/>
+
+</beans>

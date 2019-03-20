@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://dubbo.apache.org/schema/dubbo
+       http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+
+    <!--************************服务者配置步骤*********************-->
+
+
+    <!-- 1, 配置服务别名,不要和其它服务同名 -->
+    <dubbo:application name="Dubbo-provider" id="provider"/>
+
+    <!--
+         2, 配置中心zookeeper。配置注册中心地址,注册服务,默认端口2181
+         指定注册中心协议格式   -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" protocol="zookeeper"/>
+
+    <!-- 3, 指定消费者和生产者通信协议,通信协议为dubbo,通信默认端口20880 -->
+    <dubbo:protocol name="dubbo" port="20880"/>
+
+    <!-- 4, 暴露的服务接口,即在注册中心注册自己提供的接口服务,接口统一抽离出来到api -->
+    <!-- 接口指定时间1分钟内内无返回,终止此线程 -->
+    <dubbo:service interface="com.xp.api.IUserService" ref="userService" timeout="6000"/>
+    <dubbo:service interface="com.xp.api.IProductService" ref="productService" timeout="6000"/>
+
+    <!-- 5, 配置接口服务最终实现类,以此提供服务 -->
+    <bean id="userService" class="com.xp.service.UserService"/>
+    <bean id="productService" class="com.xp.service.ProductService"/>
+
+    <!-- 6, 配置监控中心 -->
+    <!--<dubbo:monitor protocol="registry"/>-->
+</beans>

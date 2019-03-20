@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xp.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.xp.pojo.User">
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="upwd" jdbcType="VARCHAR" property="upwd" />
+    <result column="ugender" jdbcType="VARCHAR" property="ugender" />
+    <result column="uemail" jdbcType="VARCHAR" property="uemail" />
+  </resultMap>
+  <insert id="insert" parameterType="com.xp.pojo.User">
+    insert into st_user (uid, uname, upwd, 
+      ugender, uemail)
+    values (#{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, #{upwd,jdbcType=VARCHAR}, 
+      #{ugender,jdbcType=VARCHAR}, #{uemail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xp.pojo.User">
+    insert into st_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="uname != null">
+        uname,
+      </if>
+      <if test="upwd != null">
+        upwd,
+      </if>
+      <if test="ugender != null">
+        ugender,
+      </if>
+      <if test="uemail != null">
+        uemail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null">
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="upwd != null">
+        #{upwd,jdbcType=VARCHAR},
+      </if>
+      <if test="ugender != null">
+        #{ugender,jdbcType=VARCHAR},
+      </if>
+      <if test="uemail != null">
+        #{uemail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
